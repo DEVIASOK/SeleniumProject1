@@ -11,7 +11,7 @@
 		<classes>
 			<class name="testcases.ClientPageTestCases">
 
-			</class>
+			</class> 
 		</classes>
 	</test>
 	<test name="edgeTest">
