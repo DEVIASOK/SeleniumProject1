@@ -10,10 +10,10 @@ import elementRepo.LoginPage;
 
 public class ClientPageTestCases extends BaseClass {
 	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
-	public void VerifyFirstNameAndSecondNamegGetsEmptyOnReset() {
+	public void VerifyFirstNameAndSecondNamegGetEmptyOnReset() {
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputUserName);
-		lp.inputPassword(Constant.inputPassword);
+		lp.inputPassword(Constant.inputPassword); 
 		lp.clickLoginButton();
 		ClientPage cp = new ClientPage(driver);
 		cp.navigateToClientTab();
