@@ -16,7 +16,7 @@ public class Constant {
 	public static final String ExpectedValidUserNameonHomepage = "CAROL THOMAS";
 	public static final String ExpectedUrlForInvalidcredentials = "https://www.qabible.in/payrollapp/site/login";
 	public static final String ExpectedTextonSearchButton = "Search";
-	public static final String ExpectedBGColorOnResetButton = "rgb(255, 255, 255)";
+	public static final String ExpectedBGColorOnResetButton = "#ffffff"; 
 	public static final String ExpectedValueFromWorkersTitleDropdown = "Ms";
 	public static final String ExpectedToolTipValue = "Delete";
 	public static final String ExpectedDOBOfWorker = "08-02-1976";

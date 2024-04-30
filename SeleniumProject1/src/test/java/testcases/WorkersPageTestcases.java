@@ -1,5 +1,6 @@
 package testcases;
 
+import org.openqa.selenium.support.Color;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseClass;
@@ -22,17 +23,18 @@ public class WorkersPageTestcases extends BaseClass {
 		Assert.assertEquals(actualResult, expectedResult, Constant.errorMessageForFailedTextonSearchButton);
 	}
 
-	@Test(enabled =false)
+	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
 	public void verifyBGColorOfResetBtn() {
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputUserName);
 		lp.inputPassword(Constant.inputPassword);
 		lp.clickLoginButton();
-		WorkersPage wp = new WorkersPage(driver);
+		WorkersPage wp = new WorkersPage(driver);  
 		wp.navigateToWorkersTab();
-		String actual = wp.backgroundColorOfResetBtn();
+		String hex = Color.fromString(wp.backgroundColorOfResetBtn()).asHex();
+		String actual =hex;
 		System.out.println(actual);
-		String expected = Constant.ExpectedBGColorOnResetButton;//In firefox its different "rgb(255, 255, 255)";so not executing
+		String expected =Constant.ExpectedBGColorOnResetButton; 
 		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedResetbgcolor);
 	}
 
