@@ -5,6 +5,8 @@
 <test name="My Test">
 <classes>
 <class name="testcases.LoginTestCases" />
+<class name="testcases.ClientPageTestCases" />
+<class name="testcases.WorkersPageTestcases" />
 </classes>
 </test>
 </suite>

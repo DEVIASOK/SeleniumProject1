@@ -14,8 +14,8 @@
 			</class> 
 		</classes>
 	</test>
-	<test name="edgeTest">
-		<parameter name="browser" value="edge"></parameter>
+	<test name="firefoxTest">
+		<parameter name="browser" value="firefox"></parameter>
 		<groups>
 			<run>
 				<include name="critical"></include>
