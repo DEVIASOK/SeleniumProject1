@@ -32,7 +32,7 @@ public class BaseClass {
 		if (name.equals("chrome")) {
 			this.driver = new ChromeDriver();
 		} else if (name.equals("edge")) {
-			this.driver = new FirefoxDriver();
+			this.driver = new EdgeDriver();
 
 		} 
 		this.driver.get(prop.getProperty("baseUrl"));
