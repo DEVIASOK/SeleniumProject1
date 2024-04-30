@@ -29,26 +29,25 @@ public class BaseClass {
 	public void beforeMethod(String name) throws IOException {
 		testBasic();
 		if (name.equals("chrome")) {
-			driver = new ChromeDriver();
+			this.driver = new ChromeDriver();
 		} else if (name.equals("edge")) {
-			driver = new EdgeDriver();
+			this.driver = new EdgeDriver();
 
-		}
-		driver.get(prop.getProperty("baseUrl"));
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
+		} 
+		this.driver.get(prop.getProperty("baseUrl"));
+		this.driver.manage().window().maximize();
+		this.driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
 	}
-
 
 	@AfterMethod(alwaysRun = true)
 
 	public void afterMethod(ITestResult iTestResult) throws IOException {
 		if (iTestResult.getStatus() == ITestResult.FAILURE) {
 			CaptureScreenshotOnFailure object = new CaptureScreenshotOnFailure();
-			object.captureScreenShotForFailedTestcase(driver, iTestResult.getName());
-		}
-
-		driver.close();
+			object.captureScreenShotForFailedTestcase(this.driver, iTestResult.getName());
+		} 
+ 
+		this.driver.close();
 
 	}
 
