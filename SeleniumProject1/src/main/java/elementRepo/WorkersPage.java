@@ -91,7 +91,6 @@ public class WorkersPage {
 		searchButton.click();
 	}
 	
-
 	public String navigateToTitleDropDown() { 
 
 		return objutilities.getTextForAnElementFromDropDown(createWorkerTabTitleDropDown, 2);
