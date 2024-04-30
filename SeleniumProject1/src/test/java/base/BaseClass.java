@@ -10,6 +10,7 @@ import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 
@@ -31,7 +32,7 @@ public class BaseClass {
 		if (name.equals("chrome")) {
 			this.driver = new ChromeDriver();
 		} else if (name.equals("edge")) {
-			this.driver = new EdgeDriver();
+			this.driver = new FirefoxDriver();
 
 		} 
 		this.driver.get(prop.getProperty("baseUrl"));
