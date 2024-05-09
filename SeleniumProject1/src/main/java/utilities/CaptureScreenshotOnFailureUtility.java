@@ -11,7 +11,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.io.FileHandler;
 
-public class CaptureScreenshotOnFailure {
+public class CaptureScreenshotOnFailureUtility {
 	
 	public void captureScreenShotForFailedTestcase(WebDriver driver ,String name) throws IOException {
 		// Interface & method for Capture Screenshot

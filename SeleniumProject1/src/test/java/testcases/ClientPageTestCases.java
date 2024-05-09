@@ -9,23 +9,23 @@ import elementRepo.ClientPage;
 import elementRepo.LoginPage;
 
 public class ClientPageTestCases extends BaseClass {
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
-	public void VerifyFirstNameAndSecondNamegGetEmptyOnReset() {
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)
+	public void VerifyClientNameAndClientIDFieldIsEmptyOnReset() {   
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputUserName);
-		lp.inputPassword(Constant.inputPassword); 
+		lp.inputPassword(Constant.inputPassword);
 		lp.clickLoginButton();
 		ClientPage cp = new ClientPage(driver);
 		cp.navigateToClientTab();
-		cp.inputClientName("Astar Logisticss123");
-		cp.inputClientID("1");
+		cp.inputClientName(Constant.inputClientName);
+		cp.inputClientID(Constant.inputClientID);
 		cp.clickOnClientResetButton();
-		String actual = cp.getTextFromClientNameTextBox();
-		String expected = "";
-		Assert.assertEquals(actual, expected, "Reset field is not empty after reset, test failed");
+		boolean actual = cp.getTextFromClientNameIDTextBoxsAndCheckEmptyAfterReset();
+		boolean expected = true;
+		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedResetOnClientPage);
 	}
 
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)
 	public void VerifySearchedClientListingInTable() {
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputUserName);
@@ -33,29 +33,14 @@ public class ClientPageTestCases extends BaseClass {
 		lp.clickLoginButton();
 		ClientPage cp = new ClientPage(driver);
 		cp.navigateToClientTab();
-		cp.inputClientName("Astar Logisticss123");
-		cp.inputClientID("1");
+		cp.inputClientName(Constant.inputClientName);
+		cp.inputClientID(Constant.inputClientID);
 		cp.clickOnClientSearchButton();
 		String actual = cp.getTextFromFirstClientNameFromTable();
-		String expected = "Astar Logisticss123";
-		Assert.assertEquals(actual, expected, "Client name is not listing in Table after Search, test failed");
+		String expected = Constant.inputClientName;
+		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedClientSearch);
 	}
-
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
-	public void VerifyClientNameIsMatchingInClientDetailsUsingViewButton() {
-		LoginPage lp = new LoginPage(driver);
-		lp.inputUserName(Constant.inputUserName);
-		lp.inputPassword(Constant.inputPassword);
-		lp.clickLoginButton();
-		ClientPage cp = new ClientPage(driver);
-		cp.navigateToClientTab();
-		String actual = cp.getTextFromFirstClientNameFromTable();
-		cp.clickOnClientViewButton();
-		String expected = ("Astar Logisticss123");
-		Assert.assertEquals(actual, expected,
-				"Client Name is not Matching In Client Detail's Table after clicking on eye symbol, test failed");
-	}
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)
 	public void VerifyClientDetailsPageOpensUsingViewButton() {
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputUserName);
@@ -64,29 +49,41 @@ public class ClientPageTestCases extends BaseClass {
 		ClientPage cp = new ClientPage(driver);
 		cp.navigateToClientTab();
 		cp.clickOnClientViewButton();
-		String actual=driver.getCurrentUrl();
-		String expected = ("https://www.qabible.in/payrollapp/client/view?id=1");
-		Assert.assertEquals(actual, expected,
-				"Client details page is not launching after clicking on view button, test failed");
+		String actual = driver.getCurrentUrl();
+		String expected = Constant.ExpectedUrlForFirstClientsClientDetailPageUsingView;
+		Assert.assertEquals(actual, expected, Constant.errorMessageForNotLaunchingClientDetailPageUsingView);
 	}
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
-	public void VerifyClientDetailsPageTitleAfterClikingOnViewButton() {
-		LoginPage lp = new LoginPage(driver);
-		lp.inputUserName(Constant.inputUserName);
+
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)  
+	public void VerifyClientNameInClientDetailsPageUsingViewButton() {   
+		LoginPage lp = new LoginPage(driver); 
+		lp.inputUserName(Constant.inputUserName);  
 		lp.inputPassword(Constant.inputPassword);
 		lp.clickLoginButton();
 		ClientPage cp = new ClientPage(driver);
 		cp.navigateToClientTab();
 		cp.clickOnClientViewButton();
-		String actual=cp.clientDetailsPageTitle();
-		String expected = ("Astar Logisticss123".toUpperCase());
-		Assert.assertEquals(actual, expected,
-				"Client details page title is not showing after clicking on view button, test failed");
-		
-		
-		
+		String actual = cp.getTextFromClientNameFromClientDetailsTableUsingViewButton();
+		String expected = (Constant.inputClientName);
+		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedTitleFromClientDetailsPage);
+
 	}
-	   
+
 	
-	
+ 
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)
+	public void VerifyClientNameOnTitleAfterClikingOnViewButton() {   
+		LoginPage lp = new LoginPage(driver); 
+		lp.inputUserName(Constant.inputUserName);
+		lp.inputPassword(Constant.inputPassword); 
+		lp.clickLoginButton();
+		ClientPage cp = new ClientPage(driver);
+		cp.navigateToClientTab();
+		cp.clickOnClientViewButton();  
+		String actual = cp.clientDetailsPageTitle();
+		String expected = (Constant.inputClientName.toUpperCase()); 
+		Assert.assertEquals(actual, expected,Constant.errorMessageForNotShowingClientInTitle);
+
+	}
+
 }

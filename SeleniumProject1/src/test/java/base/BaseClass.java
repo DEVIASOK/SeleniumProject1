@@ -1,5 +1,7 @@
 package base;
-import utilities.CaptureScreenshotOnFailure;
+import utilities.CaptureScreenshotOnFailureUtility;
+import utilities.WaitUtility;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
@@ -37,18 +39,19 @@ public class BaseClass {
 		} 
 		this.driver.get(prop.getProperty("baseUrl"));
 		this.driver.manage().window().maximize();
-		this.driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
+		WaitUtility waitutility=new WaitUtility(); 
+		waitutility.implicitWait(driver);  
+		//this.driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
 	}
 
 	@AfterMethod(alwaysRun = true)
 
-	public void afterMethod(ITestResult iTestResult) throws IOException {
+	public void afterMethod(ITestResult iTestResult) throws IOException {//ItestResult is an Interface.
 		if (iTestResult.getStatus() == ITestResult.FAILURE) {
-			CaptureScreenshotOnFailure object = new CaptureScreenshotOnFailure();
+			CaptureScreenshotOnFailureUtility object = new CaptureScreenshotOnFailureUtility();
 			object.captureScreenShotForFailedTestcase(this.driver, iTestResult.getName());
 		} 
- 
-		this.driver.close();
+  		this.driver.close(); 
 
 	}
 

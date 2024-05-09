@@ -7,11 +7,11 @@
 				<include name="medium"></include>
 				<include name="low"></include>
 			</run>
-		</groups> 
+		</groups>
 		<classes>
 			<class name="testcases.ClientPageTestCases">
 
-			</class> 
+			</class>
 		</classes>
 	</test>
 	<test name="firefoxTest">

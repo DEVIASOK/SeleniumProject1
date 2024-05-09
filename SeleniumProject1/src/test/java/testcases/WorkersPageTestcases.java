@@ -9,8 +9,8 @@ import elementRepo.LoginPage;
 import elementRepo.WorkersPage;
 
 public class WorkersPageTestcases extends BaseClass {
- 
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
+
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)
 	public void verifySearchText() {
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputUserName);
@@ -23,22 +23,22 @@ public class WorkersPageTestcases extends BaseClass {
 		Assert.assertEquals(actualResult, expectedResult, Constant.errorMessageForFailedTextonSearchButton);
 	}
 
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)
 	public void verifyBGColorOfResetBtn() {
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputUserName);
 		lp.inputPassword(Constant.inputPassword);
 		lp.clickLoginButton();
-		WorkersPage wp = new WorkersPage(driver);  
+		WorkersPage wp = new WorkersPage(driver);
 		wp.navigateToWorkersTab();
 		String hex = Color.fromString(wp.backgroundColorOfResetBtn()).asHex();
-		String actual =hex;
+		String actual = hex;
 		System.out.println(actual);
-		String expected =Constant.ExpectedBGColorOnResetButton; 
+		String expected = Constant.ExpectedBGColorOnResetButton;
 		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedResetbgcolor);
 	}
 
-	@Test(groups = "critical",retryAnalyzer = retry.Retry.class)
+	@Test(groups = "critical", retryAnalyzer = retry.Retry.class)
 	public void verifyValueinWorkersTitleDropdown() {
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputUserName);
@@ -52,7 +52,7 @@ public class WorkersPageTestcases extends BaseClass {
 		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedTitleSelection);
 	}
 
-	@Test(groups = "low",retryAnalyzer = retry.Retry.class)
+	@Test(groups = "low", retryAnalyzer = retry.Retry.class)
 	public void verifyToolTipValue() {
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputUserName);
@@ -65,7 +65,7 @@ public class WorkersPageTestcases extends BaseClass {
 		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedToolTipValue);
 	}
 
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)
 	public void verifyDateOfBirth() {
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputUserName);
@@ -73,13 +73,13 @@ public class WorkersPageTestcases extends BaseClass {
 		lp.clickLoginButton();
 		WorkersPage wp = new WorkersPage(driver);
 		wp.navigateToWorkersTab();
-		String actual = wp.workersDateOfBirth();
+		String actual = wp.workersDateOfBirth();  
 		System.out.println(actual);
 		String expected = Constant.ExpectedDOBOfWorker;
-		Assert.assertEquals(actual, expected, "DOB is incorrect,testcase failed");
+		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedDOBOnWorkersPage);
 	}
 
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)
 	public void verifyWorkersPostalCode() {
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputUserName);
@@ -89,53 +89,54 @@ public class WorkersPageTestcases extends BaseClass {
 		wp.navigateToWorkersTab();
 		String actual = wp.workersPostalCode();
 		System.out.println(actual);
-		String expected = Constant.ExpectedPostalCode;
-		Assert.assertEquals(actual, expected, "PC is incorrect,testcase failed");
+		String expected = Constant.ExpectedPostalCodeOnWorkers;
+		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedToGetPC);
 	}
 
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)
 	public void verifyWorkersTitleheaders() {
 		LoginPage lp = new LoginPage(driver);
-		lp.inputUserName(Constant.inputUserName); 
+		lp.inputUserName(Constant.inputUserName);
 		lp.inputPassword(Constant.inputPassword);
 		lp.clickLoginButton();
 		WorkersPage wp = new WorkersPage(driver);
 		wp.navigateToWorkersTab();
 		boolean actual = wp.tableHeaderTitles();
 		boolean expected = true;
-		Assert.assertEquals(actual, expected, "Titles of table are incorrect,testcase failed");
+		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedToGetTitlesOnWorkersTable);
 	}
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class)
-	public void verifySameWorkersDetailsAreShowingAfterClickOnSearchButton() { 
-		LoginPage lp = new LoginPage(driver);
+
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)
+	public void verifyWorkersDetailsAfterClickOnSearchButton() throws InterruptedException { 
+		LoginPage lp = new LoginPage(driver); 
 		lp.inputUserName(Constant.inputUserName); 
 		lp.inputPassword(Constant.inputPassword);
 		lp.clickLoginButton();
 		WorkersPage wp = new WorkersPage(driver);
-		wp.navigateToWorkersTab(); 
-		wp.workerSearchFirstNameTextBox("Dennis");
-		wp.workerSearchSecondNameTextBox("Benny");
-		wp.workerSearchPostCodeTextBox("CN23 5RB"); 
-		wp.clickonSearchButton();
-        String actual = wp.textFromNiNumColumnAfterClickOnSearchButton();//doubt unable to pass column value here[row is always 1]
-		String expected ="6955810";
-		Assert.assertEquals(actual, expected, "Given details are not matching with search details ,testcase failed");
-	} 
-	@Test(groups = "medium",retryAnalyzer = retry.Retry.class) 
+		wp.navigateToWorkersTab();
+		wp.workerSearchFirstNameTextBox(Constant.inputForValidFirstName);
+		wp.workerSearchSecondNameTextBox(Constant.inputForValidSecondName);
+		wp.workerSearchPostCodeTextBox(Constant.inputForValidPC); 
+		wp.clickonSearchButton(); 
+		boolean actual = wp.getAllValuesFromFirstRowOfATable(Constant.NiNumOnWorkersPage); 
+		boolean expected = true;
+		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedSearchDetailsFromTable);
+	}
+
+	@Test(groups = "medium", retryAnalyzer = retry.Retry.class)
 	public void verifyNoResultsFoundForIncorrectInputSearch() {
 		LoginPage lp = new LoginPage(driver);
-		lp.inputUserName(Constant.inputUserName); 
+		lp.inputUserName(Constant.inputUserName);
 		lp.inputPassword(Constant.inputPassword);
 		lp.clickLoginButton();
 		WorkersPage wp = new WorkersPage(driver);
-		wp.navigateToWorkersTab(); 
-		wp.workerSearchFirstNameTextBox("Devi");
-		wp.workerSearchSecondNameTextBox("Asok");
+		wp.navigateToWorkersTab();
+		wp.workerSearchFirstNameTextBox(Constant.inputForIncorrectFirstName);
+		wp.workerSearchSecondNameTextBox(Constant.inputForIncorrectSecondName);
 		wp.clickonSearchButton();
-		String actual = wp.textFromTableForIncorrectInputOnSearch();   
-		String expected ="No results found.";
-		Assert.assertEquals(actual, expected, "'No results found' is not showing in Table for Incorrect input ,testcase failed");
-	
-		
+		String actual = wp.textFromTableForIncorrectInputOnSearch();
+		String expected = Constant.ExpectedIncorrectInputSearchForWorkers;
+		Assert.assertEquals(actual, expected, Constant.errorMessageForFailedIncorrectInputSearchForWorkers);
+
 	}
 }

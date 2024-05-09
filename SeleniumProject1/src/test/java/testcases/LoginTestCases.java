@@ -9,13 +9,13 @@ import base.BaseClass;
 import constant.Constant;
 import elementRepo.HomePage;
 import elementRepo.LoginPage;
-import utilities.ExcelRead;
+import utilities.ExcelReadUtility;
 public class LoginTestCases extends BaseClass {
   @Test(groups="critical",retryAnalyzer = retry.Retry.class)
-    public void verifyLoginWithValidUser() throws IOException {
+    public void verifyLoginWithValidUser() throws IOException { 
 	  LoginPage objLoginPage=new LoginPage(driver);
-	  objLoginPage.inputUserName(ExcelRead.getStringData(1, 0)); 
-	  objLoginPage.inputPassword(ExcelRead.getStringData(1, 1)); 
+	  objLoginPage.inputUserName(ExcelReadUtility.getStringData(1, 0,"Sheet1")); 
+	  objLoginPage.inputPassword(ExcelReadUtility.getStringData(1, 1,"Sheet1")); 
 	  objLoginPage.clickLoginButton();
 	  
 	  HomePage objHomePage=new HomePage(driver);
@@ -27,6 +27,26 @@ public class LoginTestCases extends BaseClass {
   public void verifyIncorrectUsernameandPwd() {
 		LoginPage lp = new LoginPage(driver);
 		lp.inputUserName(Constant.inputIncorrectUserName);
+		lp.inputPassword(Constant.inputIncorrectPassword); 
+		lp.clickLoginButton();
+		String actual = driver.getCurrentUrl();
+		String expected = Constant.ExpectedUrlForInvalidcredentials;
+		Assert.assertEquals(actual, expected, Constant.errorMessageForIncorrectcredentials);
+	}
+  @Test(groups="critical",retryAnalyzer = retry.Retry.class) 
+  public void verifyIncorrectUsernameAndValidPwd() { 
+		LoginPage lp = new LoginPage(driver);
+		lp.inputUserName(Constant.inputIncorrectUserName);
+		lp.inputPassword(Constant.inputPassword); 
+		lp.clickLoginButton();
+		String actual = driver.getCurrentUrl();
+		String expected = Constant.ExpectedUrlForInvalidcredentials;
+		Assert.assertEquals(actual, expected, Constant.errorMessageForIncorrectcredentials);
+	}
+  @Test(groups="critical",retryAnalyzer = retry.Retry.class) 
+  public void verifyValidUsernameAndInCorrectPwd() {
+		LoginPage lp = new LoginPage(driver);
+		lp.inputUserName(Constant.inputUserName);
 		lp.inputPassword(Constant.inputIncorrectPassword); 
 		lp.clickLoginButton();
 		String actual = driver.getCurrentUrl();

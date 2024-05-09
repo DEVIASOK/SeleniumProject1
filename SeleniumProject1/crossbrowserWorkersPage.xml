@@ -10,8 +10,9 @@
 		</groups>
 		<classes>
 			<class name="testcases.WorkersPageTestcases">
+			
 
-			</class>
+			</class> 
 		</classes>
 	</test>
 	<test name="firefoxTest"> 
