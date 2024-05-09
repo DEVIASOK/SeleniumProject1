@@ -14,18 +14,18 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
-public class ExtentReport implements ITestListener {
+public class ExtentReportUtility implements ITestListener { 
 
 	ExtentSparkReporter sparkReporter;
-	ExtentReports reports;
-	ExtentTest test;
+	ExtentReports reports; 
+	ExtentTest test; 
 
 	public void configureReport() {//userdef function
 
 		String timeStamp = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss").format(new Date());// date time capture using
 																							// java
 
-		File reportPath = new File(System.getProperty("user.dir") + "//ExtentReport");
+		File reportPath = new File(System.getProperty("user.dir") + "//ExtentReport"); 
 
 		if (!reportPath.exists()) {
 			reportPath.mkdir(); // create folder using java for storing extent Report
@@ -35,7 +35,7 @@ public class ExtentReport implements ITestListener {
 		sparkReporter = new ExtentSparkReporter(
 				System.getProperty("user.dir") + "//ExtentReport//" + "ExtentReport_" + timeStamp + ".html");
 		reports = new ExtentReports();
-		reports.attachReporter(sparkReporter);
+		reports.attachReporter(sparkReporter); 
 
 //System details
 		reports.setSystemInfo("PC Name", "Devi");
@@ -79,12 +79,12 @@ public class ExtentReport implements ITestListener {
 
 }
 
-
+//invoked before all test methods
 	public void onStart(ITestContext context) {
 		configureReport();
 }
 
-
+//invoked after all test methods
 	public void onFinish(ITestContext context) {
 		reports.flush();
 }
